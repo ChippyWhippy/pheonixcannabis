@@ -1,85 +1,50 @@
-from flask import Flask, render_template, redirect, url_for, request, session, flash
-from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_hash, check_password_hash
-import secrets
+from flask import Flask, render_template, request, redirect, session, url_for
+from functools import wraps
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'  # Secret key to handle sessions
 
-# Secret key for session management
-app.config['SECRET_KEY'] = secrets.token_hex(24)
+# Admin credentials (store in DB or environment variables in production)
+ADMIN_USERNAME = 'admin'
+ADMIN_PASSWORD = 'password123'
 
-# Database setup
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///strain_data.db'
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-db = SQLAlchemy(app)
+# Decorator to require login for certain views (like editing)
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'logged_in' not in session:
+            return redirect(url_for('login'))  # Redirect to login if not authenticated
+        return f(*args, **kwargs)
+    return decorated_function
 
-# Database models
-class Strain(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    stage = db.Column(db.String(100), nullable=False)
-    days_in_stage = db.Column(db.Integer, default=0)
-    estimated_harvest = db.Column(db.String(10), nullable=False)
+@app.route('/')
+def home():
+    return render_template('index.html')
 
-    def __repr__(self):
-        return f"<Strain {self.name}>"
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), nullable=False, unique=True)
-    password_hash = db.Column(db.String(128), nullable=False)  # Storing the hashed password
-
-    def set_password(self, password):
-        """Hashes the password before storing it."""
-        self.password_hash = generate_password_hash(password)
-
-    def check_password(self, password):
-        """Checks if the password matches the hash."""
-        return check_password_hash(self.password_hash, password)
-
-    def __repr__(self):
-        return f"<User {self.username}>"
-
-# Route to login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         
-        # Check if the username exists
-        admin = User.query.filter_by(username=username).first()
-        
-        if admin and admin.check_password(password):  # Use the hashed password check
-            session['admin_logged_in'] = True  # Set session variable to remember the login state
-            flash("You are now logged in!", 'success')
-            return redirect(url_for('admin_dashboard'))
+        # Check if the credentials match
+        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+            session['logged_in'] = True  # User is logged in
+            return redirect(url_for('home'))  # Redirect back to the main page
         else:
-            flash("Invalid credentials. Please try again.", 'danger')
-
-    return render_template('login.html')
-
-# Admin dashboard (protected route)
-@app.route('/admin')
-def admin_dashboard():
-    if not session.get('admin_logged_in'):
-        return redirect(url_for('login'))
+            return "Invalid credentials. Please try again."
     
-    strains = Strain.query.all()  # Get all strains from the database
-    return render_template('admin_dashboard.html', strains=strains)
+    return render_template('login.html')  # Render login form if GET request
 
-# Logout
 @app.route('/logout')
 def logout():
-    session.pop('admin_logged_in', None)  # Remove the session variable to log out
-    flash("You have been logged out.", 'info')
-    return redirect(url_for('home'))
+    session.pop('logged_in', None)  # Remove the logged-in session
+    return redirect(url_for('home'))  # Redirect to homepage after logout
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+@app.route('/edit')  # Protect this route with login_required
+@login_required
+def edit():
+    return render_template('edit_table.html')  # Render the edit page
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()  # Create database tables if they don't exist
     app.run(debug=True)

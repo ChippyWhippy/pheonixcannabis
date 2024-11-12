@@ -27,6 +27,11 @@
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
         <a href="#current-grow">Current Grow</a>
+        {% if session.get('logged_in') %}
+            <a href="{{ url_for('logout') }}">Logout</a>  <!-- Show logout if logged in -->
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>  <!-- Show login if not logged in -->
+        {% endif %}
     </nav>
     <header>
         <img src="{{ url_for('static', filename='images/phoenix-cannabis-logo.jpg') }}" alt="Phoenix Cannabis Logo" class="logo">
@@ -55,7 +60,7 @@
         </div>
     </section>
     <section id="current-grow" class="current-grow">
-        <h1>Current Grow (Coming Soon)</h1>
+        <h1>Current Grow</h1>
         <table id="grow-table">
             <thead>
                 <tr>
@@ -63,20 +68,29 @@
                     <th>Stage</th>
                     <th>Days in Stage</th>
                     <th>Estimated Harvest</th>
+                    {% if session.get('logged_in') %}
+                        <th>Edit</th>  <!-- Only show Edit column if logged in -->
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Blue Dream</td>
+                    <td class="strain" data-thc="THC: 20%" data-strain-type="Sativa">Blue Dream</td>
                     <td>Vegetative</td>
                     <td>14</td>
                     <td>2024-12-01</td>
+                    {% if session.get('logged_in') %}
+                        <td><a href="{{ url_for('edit') }}"><button class="edit-btn">Edit</button></a></td>  <!-- Only show Edit button if logged in -->
+                    {% endif %}
                 </tr>
                 <tr>
-                    <td>OG Kush</td>
+                    <td class="strain" data-thc="THC: 18%" data-strain-type="Indica">OG Kush</td>
                     <td>Flowering</td>
                     <td>21</td>
                     <td>2024-11-20</td>
+                    {% if session.get('logged_in') %}
+                        <td><a href="{{ url_for('edit') }}"><button class="edit-btn">Edit</button></a></td>  <!-- Only show Edit button if logged in -->
+                    {% endif %}
                 </tr>
             </tbody>
         </table>
@@ -86,5 +100,4 @@
     </footer>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
-
 </html>

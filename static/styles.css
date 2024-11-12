@@ -141,6 +141,39 @@ footer {
     background-size: cover;
     overflow: hidden;
 }
+.strain {
+    position: relative;
+    cursor: pointer;
+    color: lightgoldenrodyellow;
+}
+
+.strain:hover::after {
+    content: attr(data-thc) " | " attr(data-strain-type);
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: gold;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeInTooltip 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeInTooltip {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 
 
