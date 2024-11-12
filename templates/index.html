@@ -68,33 +68,31 @@
                     <th>Stage</th>
                     <th>Days in Stage</th>
                     <th>Estimated Harvest</th>
-                    {% if session.get('logged_in') %}
-                        <th>Edit</th>  <!-- Only show Edit column if logged in -->
-                    {% endif %}
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td class="strain" data-thc="THC: 20%" data-strain-type="Sativa">Blue Dream</td>
+                    <td class="strain" data-thc="THC: 20%" data-strain-type="Sativa" data-description="Blue Dream is a sativa-dominant hybrid known for its balanced full-body relaxation.">Blue Dream</td>
                     <td>Vegetative</td>
                     <td>14</td>
                     <td>2024-12-01</td>
-                    {% if session.get('logged_in') %}
-                        <td><a href="{{ url_for('edit') }}"><button class="edit-btn">Edit</button></a></td>  <!-- Only show Edit button if logged in -->
-                    {% endif %}
                 </tr>
                 <tr>
-                    <td class="strain" data-thc="THC: 18%" data-strain-type="Indica">OG Kush</td>
+                    <td class="strain" data-thc="THC: 18%" data-strain-type="Indica" data-description="OG Kush is an indica-dominant hybrid with a unique terpene profile and relaxing effects.">OG Kush</td>
                     <td>Flowering</td>
                     <td>21</td>
                     <td>2024-11-20</td>
-                    {% if session.get('logged_in') %}
-                        <td><a href="{{ url_for('edit') }}"><button class="edit-btn">Edit</button></a></td>  <!-- Only show Edit button if logged in -->
-                    {% endif %}
                 </tr>
             </tbody>
         </table>
-    </section>
+        <div id="strain-info" style="display:none;">
+            <h2 id="strain-name"></h2>
+            <p id="strain-thc"></p>
+            <p id="strain-type"></p>
+            <p id="strain-description"></p>
+        </div>
+    </section>    
+    
     <footer>
         <img src="{{ url_for('static', filename='images/phoenix-cannabis-logo.jpg') }}" alt="Phoenix Cannabis Logo" class="footer-logo">
     </footer>

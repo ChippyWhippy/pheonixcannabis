@@ -45,3 +45,25 @@ window.addEventListener('load', () => {
 
     addShimmyEffect([...contentBoxes, headerLogo, footerLogo, ...socialMediaImages]);
 });
+document.addEventListener('DOMContentLoaded', () => {
+    const strains = document.querySelectorAll('.strain');
+    const strainInfo = document.getElementById('strain-info');
+    const strainName = document.getElementById('strain-name');
+    const strainTHC = document.getElementById('strain-thc');
+    const strainType = document.getElementById('strain-type');
+    const strainDescription = document.getElementById('strain-description');
+
+    strains.forEach(strain => {
+        strain.addEventListener('mouseover', () => showStrainInfo(strain));
+        strain.addEventListener('click', () => showStrainInfo(strain));
+    });
+
+    const showStrainInfo = (strain) => {
+        strainInfo.style.display = 'block';
+        strainName.innerText = strain.innerText;
+        strainTHC.innerText = strain.getAttribute('data-thc');
+        strainType.innerText = strain.getAttribute('data-strain-type');
+        strainDescription.innerText = strain.getAttribute('data-description');
+    };
+});
+

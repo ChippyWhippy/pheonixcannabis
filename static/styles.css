@@ -83,6 +83,13 @@ header {
     background-color: black;
     color: gold;
 }
+#strain-info { 
+    margin-top: 20px; 
+    background: rgba(33, 33, 33, 0.9); 
+    padding: 20px; 
+    border-radius: 10px; 
+    color: gold;
+}    
 .content-box {
     background-color: rgba(33, 33, 33, 0.9); /* Dark grey semi-transparent background */
     padding: 20px;
@@ -173,7 +180,3 @@ footer {
         transform: translateY(0);
     }
 }
-
-
-
-
