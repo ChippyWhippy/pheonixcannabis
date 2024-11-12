@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phoenix Cannabis</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}?v=1">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='images/favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='images/favicon/web-app-manifest-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ url_for('static', filename='images/favicon/web-app-manifest-512x512.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='site-webmanifest') }}">
+</head>
+<body style="background-color: rgb(84, 88, 84);">
+    <div class="smoke">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    <video autoplay muted loop id="background-video">
+        <source src="/static/videos/smoke-background.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+    <nav>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#current-grow">Current Grow</a>
+    </nav>
+    <header>
+        <img src="{{ url_for('static', filename='images/phoenix-cannabis-logo.jpg') }}" alt="Phoenix Cannabis Logo" class="logo">
+        <h1>Welcome to Phoenix Cannabis</h1>
+        <p>High-quality cannabis products for authorized vendors and retailers</p>
+        <div class="social-icons">
+            <a href="https://facebook.com/phoenixcannabis" target="_blank"><img src="{{ url_for('static', filename='images/favicon/facebook-icon.jpg') }}" alt="Facebook"></a>
+            <a href="https://twitter.com/phoenixcannabis" target="_blank"><img src="{{ url_for('static', filename='images/favicon/twitter-icon.jpg') }}" alt="Twitter"></a>
+            <a href="https://instagram.com/phoenixcannabis" target="_blank"><img src="{{ url_for('static', filename='images/favicon/instagram-icon.jpg') }}" alt="Instagram"></a>
+        </div>
+    </header>
+    
+    <section id="about" class="about" style="background-image: url('{{ url_for('static', filename='images/about-background.jpg') }}');">
+        <div class="content-box">
+            <h1>About Us</h1>
+            <p>Located in Oxford, Maine, we specialize in high-quality cannabis products for authorized vendors and retailers.</p>
+            <p>Our mission is to provide top-notch cannabis products while maintaining professionalism and integrity.</p>
+        </div>
+    </section>
+    <section id="contact" class="contact" style="background-image: url('{{ url_for('static', filename='images/contact-background.jpg') }}');">
+        <div class="content-box">
+            <h1>Contact Us</h1>
+            <p>Email: info@uncannabis.com</p>
+            <p>Phone: (555) 555-5555</p>
+            <p>Address: 123 Cannabis Lane, Oxford, ME</p>
+        </div>
+    </section>
+    <section id="current-grow" class="current-grow">
+        <h1>Current Grow (Coming Soon)</h1>
+        <table id="grow-table">
+            <thead>
+                <tr>
+                    <th>Strain</th>
+                    <th>Stage</th>
+                    <th>Days in Stage</th>
+                    <th>Estimated Harvest</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Blue Dream</td>
+                    <td>Vegetative</td>
+                    <td>14</td>
+                    <td>2024-12-01</td>
+                </tr>
+                <tr>
+                    <td>OG Kush</td>
+                    <td>Flowering</td>
+                    <td>21</td>
+                    <td>2024-11-20</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <footer>
+        <img src="{{ url_for('static', filename='images/phoenix-cannabis-logo.jpg') }}" alt="Phoenix Cannabis Logo" class="footer-logo">
+    </footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
