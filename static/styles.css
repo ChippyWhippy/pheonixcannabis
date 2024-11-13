@@ -114,16 +114,29 @@ header {
 /* Strain info styles */
 #strain-info {
     display: none;
-    margin-top: 20px;
     background: rgba(33, 33, 33, 0.9);
     padding: 20px;
     border-radius: 10px;
     color: gold;
-    width: 100%;
-    max-width: 600px;
-    position: relative;
-    left: 0;
-} 
+    position: absolute;
+    max-width: 95vw; /* Constrain width on mobile */
+    max-height: 60vh; /* Allow more height to avoid image cropping */
+    overflow-y: auto;
+    left: 2.5%; /* Center within screen width */
+    transform: translateY(10px);
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+@media (min-width: 768px) {
+    #strain-info {
+        max-width: 500px;
+        max-height: 400px;
+        left: 0;
+    }
+}
+
+
 #strain-info img {
     max-width: 100px;
     margin-right: 20px;
