@@ -1,10 +1,21 @@
+/* Basic page setup to use flexbox for layout */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
     color: gold;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;  /* Ensures the body takes at least the full height of the viewport */
 }
+
+/* Content that takes space on the page */
+main {
+    flex: 1;  /* Ensures the content area takes up available space */
+}
+
+/* General section styles */
 section {
     padding: 60px 20px;
     height: 100vh;
@@ -20,21 +31,27 @@ section {
     border-radius: 20px; /* Round the borders of each section */
     margin: 20px 0; /* Add some space between sections */
 }
+
 section.visible {
     opacity: 1;
     transform: translateY(0);
 }
+
 .about {
     background-color: #000;
 }
+
 .contact {
     background-color: #333;
 }
+
 .current-grow {
     background-color: #444;
     min-height: 50vh;
     padding: 40px 20px;
 }
+
+/* Nav styles */
 nav {
     position: fixed;
     top: 0;
@@ -44,27 +61,35 @@ nav {
     text-align: center;
     z-index: 1000;
 }
+
 nav a {
     color: gold;
     margin: 0 15px;
     text-decoration: none;
     font-weight: bold;
 }
+
 nav a:hover {
     text-decoration: underline;
 }
+
+/* Header styles */
 header {
     text-align: center;
     padding: 50px 0;
 }
+
 .logo {
     max-width: 200px;
     opacity: 0;
     transition: opacity 2s ease-in;
 }
+
 .logo-loaded .logo {
     opacity: 1;
 }
+
+/* Table styles */
 #grow-table {
     width: 100%;
     border-collapse: collapse;
@@ -75,21 +100,44 @@ header {
     background-color: #444;
     border: 1px solid #333;
 }
+
 #grow-table th, #grow-table td {
     padding: 12px;
     border: 1px solid #555;
 }
+
 #grow-table th {
     background-color: black;
     color: gold;
 }
-#strain-info { 
-    margin-top: 20px; 
-    background: rgba(33, 33, 33, 0.9); 
-    padding: 20px; 
-    border-radius: 10px; 
+
+/* Strain info styles */
+#strain-info {
+    display: none;
+    margin-top: 20px;
+    background: rgba(33, 33, 33, 0.9);
+    padding: 20px;
+    border-radius: 10px;
     color: gold;
-}    
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    left: 0;
+} 
+#strain-info img {
+    max-width: 100px;
+    margin-right: 20px;
+    vertical-align: middle;
+} 
+#strain-info h2 {
+    margin: 0 0 10px;
+    color: gold;
+}
+#strain-info p {
+    margin: 5px 0;
+}
+
+/* Content box styles */
 .content-box {
     background-color: rgba(33, 33, 33, 0.9); /* Dark grey semi-transparent background */
     padding: 20px;
@@ -97,20 +145,56 @@ header {
     max-width: 600px;
     margin: auto;
 }
+
+/* Footer styles */
 footer {
     text-align: center;
-    padding: 20px 0;
-    background-color: black;
-    color: gold;
-    position: fixed; /* Make footer fixed */
-    bottom: 0;
+    padding: 30px 0;
+    background-color: #333;
+    position: relative; /* Ensure it's positioned relative to the content */
     width: 100%;
-    z-index: 1000; /* Ensure it stays above other content */
+    bottom: 0;
 }
-.footer-logo {
-    max-width: 200px;
-    margin: 10px 0;
+
+/* Footer Logo */
+footer .footer-logo {
+    width: 120px;
+    height: auto;
 }
+
+/* Sticky Footer Layout */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+/* Mobile Styles (Small Adjustments for Footer) */
+@media (max-width: 768px) {
+    footer {
+        padding: 15px 0;  /* Reduce padding on smaller screens */
+    }
+
+    footer .footer-logo {
+        width: 100px;  /* Shrink the logo size on mobile */
+    }
+}
+
+/* Small Mobile View */
+@media (max-width: 480px) {
+    footer {
+        padding: 10px 0;  /* Even smaller padding for very small devices */
+    }
+
+    footer .footer-logo {
+        width: 80px;  /* Further reduce logo size for tiny screens */
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -125,6 +209,7 @@ footer {
 .fade-in {
     animation: fadeIn 1s ease-out forwards;
 }
+
 @keyframes shimmy {
     0% { transform: translateX(0); }
     25% { transform: translateX(-5px); }
@@ -136,6 +221,7 @@ footer {
 .shimmy {
     animation: shimmy 0.5s ease-in-out;
 }
+
 #background-video {
     position: fixed;
     right: 0;
@@ -148,6 +234,7 @@ footer {
     background-size: cover;
     overflow: hidden;
 }
+
 .strain {
     position: relative;
     cursor: pointer;
@@ -166,9 +253,9 @@ footer {
     font-size: 14px;
     white-space: nowrap;
     z-index: 1;
-    opacity: 0;
-    animation: fadeInTooltip 0.3s ease-in-out forwards;
+    opacity: 1;  /* Tooltip should appear on hover */
 }
+
 
 @keyframes fadeInTooltip {
     from {

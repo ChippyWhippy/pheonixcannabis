@@ -27,11 +27,6 @@
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
         <a href="#current-grow">Current Grow</a>
-        {% if session.get('logged_in') %}
-            <a href="{{ url_for('logout') }}">Logout</a>  <!-- Show logout if logged in -->
-        {% else %}
-            <a href="{{ url_for('login') }}">Login</a>  <!-- Show login if not logged in -->
-        {% endif %}
     </nav>
     <header>
         <img src="{{ url_for('static', filename='images/phoenix-cannabis-logo.jpg') }}" alt="Phoenix Cannabis Logo" class="logo">
@@ -66,21 +61,18 @@
                 <tr>
                     <th>Strain</th>
                     <th>Stage</th>
-                    <th>Days in Stage</th>
                     <th>Estimated Harvest</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td class="strain" data-thc="THC: 20%" data-strain-type="Sativa" data-description="Blue Dream is a sativa-dominant hybrid known for its balanced full-body relaxation.">Blue Dream</td>
+                    <td class="strain" data-thc="20%" data-strain-type="Sativa" data-description="Blue Dream is a sativa-dominant hybrid known for its balanced full-body relaxation." data-image-src="/static/images/blue-dream.jpg">Blue Dream</td>
                     <td>Vegetative</td>
-                    <td>14</td>
                     <td>2024-12-01</td>
                 </tr>
                 <tr>
-                    <td class="strain" data-thc="THC: 18%" data-strain-type="Indica" data-description="OG Kush is an indica-dominant hybrid with a unique terpene profile and relaxing effects.">OG Kush</td>
+                    <td class="strain" data-thc="18%" data-strain-type="Indica" data-description="OG Kush is an indica-dominant hybrid with a unique terpene profile and relaxing effects." data-image-src="/static/images/og-kush.jpg">OG Kush</td>
                     <td>Flowering</td>
-                    <td>21</td>
                     <td>2024-11-20</td>
                 </tr>
             </tbody>
@@ -90,8 +82,9 @@
             <p id="strain-thc"></p>
             <p id="strain-type"></p>
             <p id="strain-description"></p>
+            <img id="strain-image" src="" alt="Strain Image" style="max-width: 100%; height: auto; margin-top: 10px;">
         </div>
-    </section>    
+    </section>
     
     <footer>
         <img src="{{ url_for('static', filename='images/phoenix-cannabis-logo.jpg') }}" alt="Phoenix Cannabis Logo" class="footer-logo">

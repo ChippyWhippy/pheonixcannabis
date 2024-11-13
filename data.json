@@ -1,0 +1,21 @@
+[
+    {
+      "name": "Blue Dream",
+      "stage": "Vegetative",
+      "days_in_stage": 14,
+      "estimated_harvest": "2024-12-01",
+      "thc": "20%",
+      "strain_type": "Sativa",
+      "description": "Blue Dream is a sativa-dominant hybrid known for its balanced full-body relaxation."
+    },
+    {
+      "name": "OG Kush",
+      "stage": "Flowering",
+      "days_in_stage": 21,
+      "estimated_harvest": "2024-11-20",
+      "thc": "18%",
+      "strain_type": "Indica",
+      "description": "OG Kush is an indica-dominant hybrid with a unique terpene profile and relaxing effects."
+    }
+  ]
+  

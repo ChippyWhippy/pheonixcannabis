@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Table</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+    <h1>Edit Grow Data</h1>
+    <table id="grow-table">
+        <thead>
+            <tr>
+                <th>Strain</th>
+                <th>Stage</th>
+                <th>Days in Stage</th>
+                <th>Estimated Harvest</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for strain in data %}
+            <tr>
+                <td class="strain">{{ strain.name }}</td>
+                <td>{{ strain.stage }}</td>
+                <td>{{ strain.days_in_stage }}</td>
+                <td class="harvest-date"><input type="date" value="{{ strain.estimated_harvest }}"></td>
+                <td><button class="edit-btn" onclick="editRow(this)">Edit</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>

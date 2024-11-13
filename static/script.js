@@ -45,25 +45,56 @@ window.addEventListener('load', () => {
 
     addShimmyEffect([...contentBoxes, headerLogo, footerLogo, ...socialMediaImages]);
 });
-document.addEventListener('DOMContentLoaded', () => {
-    const strains = document.querySelectorAll('.strain');
-    const strainInfo = document.getElementById('strain-info');
-    const strainName = document.getElementById('strain-name');
-    const strainTHC = document.getElementById('strain-thc');
-    const strainType = document.getElementById('strain-type');
-    const strainDescription = document.getElementById('strain-description');
+window.addEventListener('load', () => {
+    let isDescriptionPinned = false;
+    let currentPinnedStrain = null;
 
-    strains.forEach(strain => {
-        strain.addEventListener('mouseover', () => showStrainInfo(strain));
-        strain.addEventListener('click', () => showStrainInfo(strain));
+    document.querySelectorAll('.strain').forEach(strain => {
+        strain.addEventListener('mouseover', () => {
+            if (!isDescriptionPinned) {
+                showStrainInfo(strain);
+            }
+        });
+
+        strain.addEventListener('mouseout', () => {
+            if (!isDescriptionPinned) {
+                hideStrainInfo();
+            }
+        });
+
+        strain.addEventListener('click', () => {
+            // If another strain is already pinned, unpin it first
+            if (isDescriptionPinned && currentPinnedStrain !== strain) {
+                isDescriptionPinned = false;
+            }
+            
+            // Toggle the pinning state
+            isDescriptionPinned = !isDescriptionPinned;
+            currentPinnedStrain = isDescriptionPinned ? strain : null;
+
+            if (isDescriptionPinned) {
+                showStrainInfo(strain);
+            } else {
+                hideStrainInfo();
+            }
+        });
     });
 
-    const showStrainInfo = (strain) => {
+    function showStrainInfo(strain) {
+        const strainInfo = document.getElementById('strain-info');
         strainInfo.style.display = 'block';
-        strainName.innerText = strain.innerText;
-        strainTHC.innerText = strain.getAttribute('data-thc');
-        strainType.innerText = strain.getAttribute('data-strain-type');
-        strainDescription.innerText = strain.getAttribute('data-description');
-    };
+
+        // Update strain info content
+        document.getElementById('strain-name').textContent = strain.textContent;
+        document.getElementById('strain-thc').textContent = `THC: ${strain.getAttribute('data-thc')}`;
+        document.getElementById('strain-type').textContent = `Type: ${strain.getAttribute('data-strain-type')}`;
+        document.getElementById('strain-description').textContent = strain.getAttribute('data-description');
+        document.getElementById('strain-image').src = strain.getAttribute('data-image-src');
+    }
+
+    function hideStrainInfo() {
+        document.getElementById('strain-info').style.display = 'none';
+    }
 });
+
 
